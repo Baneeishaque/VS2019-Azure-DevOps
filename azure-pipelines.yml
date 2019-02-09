@@ -5,6 +5,8 @@ steps:
 - script: | 
     vs_enterprise__2089693828.1549679318 --passive --layout VS2019_layout --lang en-US --all
     dir VS2019_layout
+    7-ZipPortable\App\7-Zip64\7z.exe a "VS2019_layout_repository\VS2019_layout.zip" VS2019_layout\ -mx0 -v10m
+    dir VS2019_layout_repository
   displayName: 'VS2019' 
   continueOnError: true 
   timeoutInMinutes: 0
