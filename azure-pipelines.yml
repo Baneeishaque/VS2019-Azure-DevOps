@@ -5,18 +5,16 @@ steps:
 - script: | 
     vs_enterprise__2089693828.1549679318 --passive --layout VS2019_layout --lang en-US --all
     dir VS2019_layout
-    7-ZipPortable\App\7-Zip64\7z.exe a "VS2019_layout_repository\VS2019_layout.zip" VS2019_layout\ -mx0 -v10m
-    dir VS2019_layout_repository
   displayName: 'VS2019' 
   continueOnError: true 
   timeoutInMinutes: 0
-# - task: FtpUpload@1 
-  # displayName: 'FTP Upload: lottery_server_repository' 
-  # inputs: 
-    # credentialsOption: inputs 
-    # serverUrl: 'ftp://192.254.233.216' 
-    # username: 'root@alaneesgroup.com' 
-    # password: 9895204814 
-    # preservePaths: true 
-    # rootDirectory: 'Lottery_Server'
-    # remoteDirectory: '/lottery_server_repository'
+- task: FtpUpload@1 
+  displayName: 'FTP Upload: VS2019_layout' 
+  inputs: 
+    credentialsOption: inputs 
+    serverUrl: 'ftp://192.254.233.216' 
+    username: 'root@alaneesgroup.com' 
+    password: 9895204814 
+    preservePaths: true 
+    rootDirectory: 'VS2019_layout'
+    remoteDirectory: '/VS2019_layout'
