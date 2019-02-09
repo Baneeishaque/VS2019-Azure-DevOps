@@ -3,7 +3,7 @@ pool:
 
 steps:
 - script: | 
-    vs_enterprise__2089693828.1549679318 --passive --layout VS2019_layout --lang en-US --add Microsoft.VisualStudio.Workload.NetWeb
+    vs_enterprise__2089693828.1549679318 --passive --layout VS2019_layout --lang en-US --all
     dir VS2019_layout
   displayName: 'VS2019' 
   continueOnError: true 
