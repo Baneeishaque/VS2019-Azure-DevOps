@@ -3,8 +3,8 @@ pool:
 
 # Variables
 variables:
-  version: 16-10-1
-  vs2019InstallerFile: vs_enterprise__190158566.1623318602.exe
+  version: 16-10-4
+  vs2019InstallerFile: vs_enterprise__1251177795.1627255683.exe
   repositoryName: vs2019_Azure_DevOps
   # Secret Variables
   MAPPED_FTP_HOST: $(FTP_HOST)
