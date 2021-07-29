@@ -29,15 +29,17 @@ steps:
     echo --------------------------------------------------------
     dir
   displayName: 'Zip VS2019 $(version) $(Build.SourceBranchName) Directory'
-# Upload Workload Directory Zip File
-- task: FtpUpload@2
-  displayName: 'FTP Upload VS2019 $(version) $(Build.SourceBranchName) Directory Zip File'
-  inputs:
-    credentialsOption: inputs
-    serverUrl: 'ftp://$(MAPPED_FTP_HOST)'
-    username: $(MAPPED_FTP_USER)
-    password: $(MAPPED_FTP_PWD)
-    # TODO : Add option for file instead of directory
-    rootDirectory: '.'
-    remoteDirectory: '/public_html/files/$(repositoryName)/$(Build.SourceVersion)'
-    filePatterns: 'VS2019-$(version)_layout_$(Build.SourceBranchName).zip'
+# # Upload Workload Directory Zip File
+# - task: FtpUpload@2
+#   displayName: 'FTP Upload VS2019 $(version) $(Build.SourceBranchName) Directory Zip File'
+#   inputs:
+#     credentialsOption: inputs
+#     serverUrl: 'ftp://$(MAPPED_FTP_HOST)'
+#     username: $(MAPPED_FTP_USER)
+#     password: $(MAPPED_FTP_PWD)
+#     # TODO : Add option for file instead of directory
+#     rootDirectory: '.'
+#     remoteDirectory: '/public_html/files/$(repositoryName)/$(Build.SourceVersion)'
+#     filePatterns: 'VS2019-$(version)_layout_$(Build.SourceBranchName).zip'
+- publish: VS2019-$(version)_layout_$(Build.SourceBranchName).zip
+  artifact: VS2019 $(version) $(Build.SourceBranchName)
