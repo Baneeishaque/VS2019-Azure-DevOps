@@ -7,45 +7,45 @@ variables:
   vs2019InstallerFile: vs_enterprise__1251177795.1627255683.exe
   repositoryName: vs2019_Azure_DevOps
   # Secret Variables
-  MAPPED_FTP_HOST: $(FTP_HOST)
-  MAPPED_FTP_USER: $(FTP_USER)
-  MAPPED_FTP_PWD: $(FTP_PWD)
-  
+#  MAPPED_FTP_HOST: $(FTP_HOST)
+#  MAPPED_FTP_USER: $(FTP_USER)
+#  MAPPED_FTP_PWD: $(FTP_PWD)
+
 steps:
-- script: | 
-    $(vs2019InstallerFile) --passive --layout VS2019-$(version)_layout_$(Build.SourceBranchName) --lang en-US --add Microsoft.VisualStudio.Workload.$(Build.SourceBranchName) --includeRecommended --includeOptional
-    dir VS2019-$(version)_layout_$(Build.SourceBranchName)
-  displayName: 'Download VS2019 $(version) $(Build.SourceBranchName) Items'
-  condition: or(ne(variables['Build.SourceBranchName'], 'NativeDesktop'), ne(variables['Build.SourceBranchName'], 'Universal'))
-  timeoutInMinutes: 0
-- script: | 
-    $(vs2019InstallerFile) --passive --layout VS2019-$(version)_layout_$(Build.SourceBranchName) --lang en-US --add Microsoft.VisualStudio.Workload.$(Build.SourceBranchName)
-    dir VS2019-$(version)_layout_$(Build.SourceBranchName)
-  displayName: 'Download VS2019 $(version) $(Build.SourceBranchName) (More Reduced) Items'
-  condition: or(eq(variables['Build.SourceBranchName'], 'NativeDesktop'), eq(variables['Build.SourceBranchName'], 'Universal'))
-  timeoutInMinutes: 0
-# Check for Zip
-- script: zip.exe --version
-  displayName: 'Check for Zip'
-# Compress Workload Directory & Verify Compress
-- script: |
-    zip.exe -r VS2019-$(version)_layout_$(Build.SourceBranchName).zip VS2019-$(version)_layout_$(Build.SourceBranchName) 
-    echo 
-    echo Current Directory Contents
-    echo --------------------------------------------------------
-    dir
-  displayName: 'Zip VS2019 $(version) $(Build.SourceBranchName) Directory'
-# # Upload Workload Directory Zip File
-# - task: FtpUpload@2
-#   displayName: 'FTP Upload VS2019 $(version) $(Build.SourceBranchName) Directory Zip File'
-#   inputs:
-#     credentialsOption: inputs
-#     serverUrl: 'ftp://$(MAPPED_FTP_HOST)'
-#     username: $(MAPPED_FTP_USER)
-#     password: $(MAPPED_FTP_PWD)
-#     # TODO : Add option for file instead of directory
-#     rootDirectory: '.'
-#     remoteDirectory: '/public_html/files/$(repositoryName)/$(Build.SourceVersion)'
-#     filePatterns: 'VS2019-$(version)_layout_$(Build.SourceBranchName).zip'
-- publish: VS2019-$(version)_layout_$(Build.SourceBranchName).zip
-  artifact: VS2019 $(version) $(Build.SourceBranchName)
+  - script: |
+      $(vs2019InstallerFile) --passive --layout VS2019-$(version)_layout_$(Build.SourceBranchName) --lang en-US --add Microsoft.VisualStudio.Workload.$(Build.SourceBranchName) --includeRecommended --includeOptional
+      dir VS2019-$(version)_layout_$(Build.SourceBranchName)
+    displayName: 'Download VS2019 $(version) $(Build.SourceBranchName) Items'
+    condition: and(ne(variables['Build.SourceBranchName'], 'NativeDesktop'), ne(variables['Build.SourceBranchName'], 'Universal'), ne(variables['Build.SourceBranchName'], 'NativeGame'))
+    timeoutInMinutes: 0
+  - script: |
+      $(vs2019InstallerFile) --passive --layout VS2019-$(version)_layout_$(Build.SourceBranchName) --lang en-US --add Microsoft.VisualStudio.Workload.$(Build.SourceBranchName)
+      dir VS2019-$(version)_layout_$(Build.SourceBranchName)
+    displayName: 'Download VS2019 $(version) $(Build.SourceBranchName) (More Reduced) Items'
+    condition: or(eq(variables['Build.SourceBranchName'], 'NativeDesktop'), eq(variables['Build.SourceBranchName'], 'Universal'), eq(variables['Build.SourceBranchName'], 'NativeGame'))
+    timeoutInMinutes: 0
+  # Check for Zip
+  - script: zip.exe --version
+    displayName: 'Check for Zip'
+  # Compress Workload Directory & Verify Compress
+  - script: |
+      zip.exe -r VS2019-$(version)_layout_$(Build.SourceBranchName).zip VS2019-$(version)_layout_$(Build.SourceBranchName)
+      echo
+      echo Current Directory Contents
+      echo --------------------------------------------------------
+      dir
+    displayName: 'Zip VS2019 $(version) $(Build.SourceBranchName) Directory'
+  # # Upload Workload Directory Zip File
+  # - task: FtpUpload@2
+  #   displayName: 'FTP Upload VS2019 $(version) $(Build.SourceBranchName) Directory Zip File'
+  #   inputs:
+  #     credentialsOption: inputs
+  #     serverUrl: 'ftp://$(MAPPED_FTP_HOST)'
+  #     username: $(MAPPED_FTP_USER)
+  #     password: $(MAPPED_FTP_PWD)
+  #     # TODO : Add option for file instead of directory
+  #     rootDirectory: '.'
+  #     remoteDirectory: '/public_html/files/$(repositoryName)/$(Build.SourceVersion)'
+  #     filePatterns: 'VS2019-$(version)_layout_$(Build.SourceBranchName).zip'
+  - publish: VS2019-$(version)_layout_$(Build.SourceBranchName).zip
+    artifact: VS2019 $(version) $(Build.SourceBranchName)
