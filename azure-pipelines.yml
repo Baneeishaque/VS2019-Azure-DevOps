@@ -10,6 +10,8 @@ variables:
 #  MAPPED_FTP_HOST: $(FTP_HOST)
 #  MAPPED_FTP_USER: $(FTP_USER)
 #  MAPPED_FTP_PWD: $(FTP_PWD)
+  MAPPED_MEGA_USERNAME: $(MEGA_USERNAME)
+  MAPPED_MEGA_PASSWORD: $(MEGA_PASSWORD)
 
 steps:
   - script: |
@@ -55,3 +57,5 @@ steps:
   #     filePatterns: 'VS2019-$(version)_layout_$(Build.SourceBranchName).zip'
   - publish: VS2019-$(version)_layout_$(Build.SourceBranchName).zip
     artifact: VS2019 $(version) $(Build.SourceBranchName)
+  - script: megatools-1.11.0-git-20210505-win64/megatools.exe put --path /$(repositoryName)/VS2019-$(version)_layout_$(Build.SourceBranchName).zip VS2019-$(version)_layout_$(Build.SourceBranchName).zip --username $(MAPPED_MEGA_USERNAME) --password $(MAPPED_MEGA_PASSWORD)
+    displayName: 'Mega Upload VS2019 $(version) $(Build.SourceBranchName) Directory Zip File'
