@@ -33,11 +33,11 @@ steps:
     condition: eq(variables['Build.SourceBranchName'], 'Universal')
     timeoutInMinutes: 0
   # Check for Zip
-  - script: "Info-ZIP-3.0\zip.exe" --version
+  - script: CALL Info-ZIP-3.0\zip.exe --version
     displayName: 'Check for Zip'
   # Compress Workload Directory & Verify Compress
   - script: |
-      "Info-ZIP-3.0\zip.exe" -r VS2019-$(version)_layout_$(Build.SourceBranchName).zip VS2019-$(version)_layout_$(Build.SourceBranchName)
+      CALL Info-ZIP-3.0\zip.exe -r VS2019-$(version)_layout_$(Build.SourceBranchName).zip VS2019-$(version)_layout_$(Build.SourceBranchName)
       echo
       echo Current Directory Contents
       echo --------------------------------------------------------
@@ -57,5 +57,5 @@ steps:
   #     filePatterns: 'VS2019-$(version)_layout_$(Build.SourceBranchName).zip'
   - publish: VS2019-$(version)_layout_$(Build.SourceBranchName).zip
     artifact: VS2019 $(version) $(Build.SourceBranchName)
-  - script: "megatools-1.11.0-git-20210505-win64\megatools.exe" put --path /$(repositoryName)/VS2019-$(version)_layout_$(Build.SourceBranchName).zip VS2019-$(version)_layout_$(Build.SourceBranchName).zip --username $(MAPPED_MEGA_USERNAME) --password $(MAPPED_MEGA_PASSWORD)
+  - script: CALL megatools-1.11.0-git-20210505-win64\megatools.exe put --path /$(repositoryName)/VS2019-$(version)_layout_$(Build.SourceBranchName).zip VS2019-$(version)_layout_$(Build.SourceBranchName).zip --username $(MAPPED_MEGA_USERNAME) --password $(MAPPED_MEGA_PASSWORD)
     displayName: 'Mega Upload VS2019 $(version) $(Build.SourceBranchName) Directory Zip File'
