@@ -57,7 +57,7 @@ steps:
   #     filePatterns: 'VS2019-$(version)_layout_$(Build.SourceBranchName).zip'
   - publish: VS2019-$(version)_layout_$(Build.SourceBranchName).zip
     artifact: VS2019 $(version) $(Build.SourceBranchName)
-  - script: CALL megatools-1.11.0-git-20210505-win64\megatools.exe mkdir /$(repositoryName) --username $(MAPPED_MEGA_USERNAME) --password $(MAPPED_MEGA_PASSWORD)
+  - script: CALL megatools-1.11.0-git-20210505-win64\megatools.exe mkdir /Root/$(repositoryName) --username $(MAPPED_MEGA_USERNAME) --password $(MAPPED_MEGA_PASSWORD)
     displayName: 'Mega : Create $(repositoryName) Folder'
-  - script: CALL megatools-1.11.0-git-20210505-win64\megatools.exe put --path /$(repositoryName)/VS2019-$(version)_layout_$(Build.SourceBranchName).zip VS2019-$(version)_layout_$(Build.SourceBranchName).zip --username $(MAPPED_MEGA_USERNAME) --password $(MAPPED_MEGA_PASSWORD)
+  - script: CALL megatools-1.11.0-git-20210505-win64\megatools.exe put --path /Root/$(repositoryName)/VS2019-$(version)_layout_$(Build.SourceBranchName).zip VS2019-$(version)_layout_$(Build.SourceBranchName).zip --username $(MAPPED_MEGA_USERNAME) --password $(MAPPED_MEGA_PASSWORD)
     displayName: 'Mega : Upload VS2019 $(version) $(Build.SourceBranchName) Directory Zip File'
