@@ -27,7 +27,7 @@ steps:
     condition: or(eq(variables['Build.SourceBranchName'], 'NativeDesktop'), eq(variables['Build.SourceBranchName'], 'NativeGame'))
     timeoutInMinutes: 0
   - script: |
-      $(vs2019InstallerFile) --passive --layout VS2019-$(version)_layout_$(Build.SourceBranchName) --lang en-US --add Microsoft.VisualStudio.Workload.$(Build.SourceBranchName) --includeRecommended --add Microsoft.VisualStudio.ComponentGroup.UWP.VC --add Microsoft.VisualStudio.ComponentGroup.UWP.VC.v141
+      $(vs2019InstallerFile) --passive --layout VS2019-$(version)_layout_Universal --lang en-US --add Microsoft.VisualStudio.Workload.$(Build.SourceBranchName) --includeRecommended --add Microsoft.VisualStudio.ComponentGroup.UWP.VC --add Microsoft.VisualStudio.ComponentGroup.UWP.VC.v141
       dir VS2019-$(version)_layout_$(Build.SourceBranchName)
     displayName: 'Download VS2019 $(version) Universal (Reduced) Items with UWP C++ tools'
     condition: eq(variables['Build.SourceBranchName'], 'Universal')
